@@ -4,8 +4,8 @@ Discord Bot for serving up assassination contracts from a CSV file. You can prob
 Put killer-bot.py, .env (rename dotenv.example), and targets.csv (not included) in a folder and go nuts.
 
 Requires:
-pip install discord.py
-pip install python-dotenv
+* pip install discord.py
+* pip install python-dotenv
 
 I have also included a sample systemd service file that I used to run the script automatically on reboot. Just edit the paths, user, and enable/start the service.
 
