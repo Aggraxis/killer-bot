@@ -1,0 +1,14 @@
+[Unit]
+Description=Killer-Bot
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=simple
+User=someserviceuser
+WorkingDirectory= /path/to/killer-bot
+ExecStart=python3 /path/to/killer-bot/killer-bot.py
+
+[Install]
+WantedBy=multi-user.target
+
