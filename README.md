@@ -1,7 +1,7 @@
 # killer-bot
 Discord Bot for serving up assassination contracts from a CSV file. You can probably edit it to serve up just about any kind of responses based on CSV input.... like a lunch bot or something. Use your imagination and be creative. 
 
-Put killer-bot.py, .env, and targets.csv (mot included) in a folder and go nuts.
+Put killer-bot.py, .env, and targets.csv (not included) in a folder and go nuts.
 
 Requires:
 pip install discord.py
