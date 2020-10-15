@@ -49,6 +49,9 @@ random.shuffle(anything_list)
 
 bot = commands.Bot(command_prefix='$')
 
+def compose_response(random_target):
+     return f"Contract # {random_target['CONTRACT_NUMBER']}\nName: {random_target['TARGET']}\nZone: {random_target['ZONE']}\n{random_target['LEDGER_TEXT']}"
+
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
@@ -60,56 +63,57 @@ async def contract(ctx):
     # random_target is a dictionary, and they key names like 'CONTRACT_NUMBER'
     # come from the header row in the CSV file. So if your spreadsheet has
     # different headers, change this response string accordingly.
-    response = f"Contract # {random_target['CONTRACT_NUMBER']}\nName: {random_target['TARGET']}\nZone: {random_target['ZONE']}\n{random_target['LEDGER_TEXT']}"
+#    response = f"Contract # {random_target['CONTRACT_NUMBER']}\nName: {random_target['TARGET']}\nZone: {random_target['ZONE']}\n{random_target['LEDGER_TEXT']}"
+    response = compose_response(random_target)
     await ctx.send(response)
 
 # !wb gets a base game random world boss
 @bot.command(name='wb',brief='gets a base game random world boss')
 async def wb(ctx):
     random_target= random.choice(wb_list)
-    response = f"Contract # {random_target['CONTRACT_NUMBER']}\nName: {random_target['TARGET']}\nZone: {random_target['ZONE']}\n{random_target['LEDGER_TEXT']}"
+    response = compose_response(random_target)
     await ctx.send(response)
 
 # !cw gets a clockwork city random target
 @bot.command(name='cw', brief='gets a clockwork city random target')
 async def clockwork(ctx):
     random_target= random.choice(clockwork_list)
-    response = f"Contract # {random_target['CONTRACT_NUMBER']}\nName: {random_target['TARGET']}\nZone: {random_target['ZONE']}\n{random_target['LEDGER_TEXT']}"
+    response = compose_response(random_target)
     await ctx.send(response)
 
 # !gc gets a gold coast random target
 @bot.command(name='gc', brief='gets a gold coast random target')
 async def goldcoast(ctx):
     random_target= random.choice(goldcoast_list)
-    response = f"Contract # {random_target['CONTRACT_NUMBER']}\nName: {random_target['TARGET']}\nZone: {random_target['ZONE']}\n{random_target['LEDGER_TEXT']}"
+    response = compose_response(random_target)
     await ctx.send(response)
 
 # !hb gets a hew's bane random target
 @bot.command(name='hb', brief='gets a hews bane random target')
 async def hewsbane(ctx):
     random_target= random.choice(hewsbane_list)
-    response = f"Contract # {random_target['CONTRACT_NUMBER']}\nName: {random_target['TARGET']}\nZone: {random_target['ZONE']}\n{random_target['LEDGER_TEXT']}"
+    response = compose_response(random_target)
     await ctx.send(response)
 
 # !mm gets a murkmire random target
 @bot.command(name='mm', brief='gets a murkmire random target')
 async def murkmire(ctx):
     random_target= random.choice(murkmire_list)
-    response = f"Contract # {random_target['CONTRACT_NUMBER']}\nName: {random_target['TARGET']}\nZone: {random_target['ZONE']}\n{random_target['LEDGER_TEXT']}"
+    response = compose_response(random_target)
     await ctx.send(response)
 
 # !ws gets a western skyrim random target
 @bot.command(name='ws', brief='gets a western skyrim random target')
 async def skyrim(ctx):
     random_target= random.choice(skyrim_list)
-    response = f"Contract # {random_target['CONTRACT_NUMBER']}\nName: {random_target['TARGET']}\nZone: {random_target['ZONE']}\n{random_target['LEDGER_TEXT']}"
+    response = compose_response(random_target)
     await ctx.send(response)
 
 # !anything gets a random target from the jumbled up list (minus world bosses)
 @bot.command(name='anything', brief='gets a random target from anywhere (no world bosses)')
 async def anything(ctx):
     random_target= random.choice(anything_list)
-    response = f"Contract # {random_target['CONTRACT_NUMBER']}\nName: {random_target['TARGET']}\nZone: {random_target['ZONE']}\n{random_target['LEDGER_TEXT']}"
+    response = compose_response(random_target)
     await ctx.send(response)
 
 bot.run(TOKEN)
