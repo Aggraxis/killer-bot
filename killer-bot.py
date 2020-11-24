@@ -19,37 +19,64 @@ with open('wb.csv') as csvfile:
     wb_list = (list(reader))
 
 #clockwork city contracts
-with open('clockwork.csv') as csvfile:
+with open('cw.csv') as csvfile:
     reader = csv.DictReader(csvfile)
-    clockwork_list = (list(reader))
+    cw_list = (list(reader))
 
 #gold coast contracts
-with open('goldcoast.csv') as csvfile:
+with open('gc.csv') as csvfile:
     reader = csv.DictReader(csvfile)
-    goldcoast_list = (list(reader))
+    gc_list = (list(reader))
 
 #hew's bane contracts
-with open('hewsbane.csv') as csvfile:
+with open('hb.csv') as csvfile:
     reader = csv.DictReader(csvfile)
-    hewsbane_list = (list(reader))
+    hb_list = (list(reader))
 
 #murkmire contracts
-with open('murkmire.csv') as csvfile:
+with open('mm.csv') as csvfile:
     reader = csv.DictReader(csvfile)
-    murkmire_list = (list(reader))
+    mm_list = (list(reader))
 
 #western skyrim contracts
-with open('skyrim.csv') as csvfile:
+with open('ws.csv') as csvfile:
     reader = csv.DictReader(csvfile)
-    skyrim_list = (list(reader))
+    ws_list = (list(reader))
 
-#put everything in one list (except the world bosses) and shake it up... you know, just for fun.
-anything_list = target_list + clockwork_list + goldcoast_list + hewsbane_list + murkmire_list + skyrim_list
+#dungeons
+with open('gd.csv') as csvfile:
+    reader = csv.DictReader(csvfile)
+    gd_list = (list(reader))    
+
+#Northern elsweyr
+with open('ew.csv') as csvfile:
+    reader = csv.DictReader(csvfile)
+    ew_list = (list(reader))   
+
+#Vvardenfell
+with open('vv.csv') as csvfile:
+    reader = csv.DictReader(csvfile)
+    vv_list = (list(reader))
+
+#Southern Elsweyr
+with open('se.csv') as csvfile:
+    reader = csv.DictReader(csvfile)
+    se_list = (list(reader))
+#Summerset
+with open('ss.csv') as csvfile:
+    reader = csv.DictReader(csvfile)
+    ss_list = (list(reader))      
+
+#put everything in one list (except the world bosses and dungeons) and shake it up... you know, just for fun.
+anything_list = target_list + cw_list + gc_list + hb_list + mm_list + ws_list + ew_list + vv_list + se_list + ss_list
 random.shuffle(anything_list)
 
 bot = commands.Bot(command_prefix='$')
 
 def compose_response(random_target):
+    # random_target is a dictionary, and the key names like 'CONTRACT_NUMBER'
+    # come from the header row in the CSV file. So if your spreadsheet has
+    # different headers, change this response string accordingly.
      return f"Contract # {random_target['CONTRACT_NUMBER']}\nName: {random_target['TARGET']}\nZone: {random_target['ZONE']}\n{random_target['LEDGER_TEXT']}"
 
 @bot.event
@@ -60,56 +87,75 @@ async def on_ready():
 @bot.command(name='contract', brief='gets a base game contract')
 async def contract(ctx):
     random_target= random.choice(target_list)
-    # random_target is a dictionary, and they key names like 'CONTRACT_NUMBER'
-    # come from the header row in the CSV file. So if your spreadsheet has
-    # different headers, change this response string accordingly.
-#    response = f"Contract # {random_target['CONTRACT_NUMBER']}\nName: {random_target['TARGET']}\nZone: {random_target['ZONE']}\n{random_target['LEDGER_TEXT']}"
     response = compose_response(random_target)
     await ctx.send(response)
 
-# !wb gets a base game random world boss
 @bot.command(name='wb',brief='gets a base game random world boss')
 async def wb(ctx):
     random_target= random.choice(wb_list)
     response = compose_response(random_target)
     await ctx.send(response)
 
-# !cw gets a clockwork city random target
 @bot.command(name='cw', brief='gets a clockwork city random target')
 async def clockwork(ctx):
-    random_target= random.choice(clockwork_list)
+    random_target= random.choice(cw_list)
     response = compose_response(random_target)
     await ctx.send(response)
 
-# !gc gets a gold coast random target
 @bot.command(name='gc', brief='gets a gold coast random target')
 async def goldcoast(ctx):
-    random_target= random.choice(goldcoast_list)
+    random_target= random.choice(gc_list)
     response = compose_response(random_target)
     await ctx.send(response)
 
-# !hb gets a hew's bane random target
 @bot.command(name='hb', brief='gets a hews bane random target')
 async def hewsbane(ctx):
-    random_target= random.choice(hewsbane_list)
+    random_target= random.choice(hb_list)
     response = compose_response(random_target)
     await ctx.send(response)
 
-# !mm gets a murkmire random target
 @bot.command(name='mm', brief='gets a murkmire random target')
 async def murkmire(ctx):
-    random_target= random.choice(murkmire_list)
+    random_target= random.choice(mm_list)
     response = compose_response(random_target)
     await ctx.send(response)
 
-# !ws gets a western skyrim random target
 @bot.command(name='ws', brief='gets a western skyrim random target')
 async def skyrim(ctx):
-    random_target= random.choice(skyrim_list)
+    random_target= random.choice(ws_list)
     response = compose_response(random_target)
     await ctx.send(response)
 
-# !anything gets a random target from the jumbled up list (minus world bosses)
+@bot.command(name='ew', brief='gets a northern elsweyr random target')
+async def elsweyr(ctx):
+    random_target= random.choice(ew_list)
+    response = compose_response(random_target)
+    await ctx.send(response)
+
+@bot.command(name='vv', brief='gets a vvardenfell random target')
+async def vvardenfell(ctx):
+    random_target= random.choice(vv_list)
+    response = compose_response(random_target)
+    await ctx.send(response)
+
+@bot.command(name='se', brief='gets a southern elsweyr random target')
+async def southelsweyr(ctx):
+    random_target= random.choice(se_list)
+    response = compose_response(random_target)
+    await ctx.send(response)
+
+@bot.command(name='ss', brief='gets a summerset random target')
+async def summerset(ctx):
+    random_target= random.choice(ss_list)
+    response = compose_response(random_target)
+    await ctx.send(response)    
+
+@bot.command(name='gd', brief='gets a group dungeon random target')
+async def dungeon(ctx):
+    random_target= random.choice(gd_list)
+    response = compose_response(random_target)
+    await ctx.send(response)
+
 @bot.command(name='anything', brief='gets a random target from anywhere (no world bosses)')
 async def anything(ctx):
     random_target= random.choice(anything_list)
