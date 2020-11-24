@@ -86,81 +86,55 @@ async def on_ready():
 # !contract gets a base game random target
 @bot.command(name='contract', brief='gets a base game contract')
 async def contract(ctx):
-    random_target= random.choice(target_list)
-    response = compose_response(random_target)
-    await ctx.send(response)
+    await ctx.send(compose_response(random.choice(target_list))) 
 
 @bot.command(name='wb',brief='gets a base game random world boss')
 async def wb(ctx):
-    random_target= random.choice(wb_list)
-    response = compose_response(random_target)
-    await ctx.send(response)
+    await ctx.send(compose_response(random.choice(wb_list))) 
 
 @bot.command(name='cw', brief='gets a clockwork city random target')
 async def clockwork(ctx):
-    random_target= random.choice(cw_list)
-    response = compose_response(random_target)
-    await ctx.send(response)
+    await ctx.send(compose_response(random.choice(cw_list))) 
 
 @bot.command(name='gc', brief='gets a gold coast random target')
 async def goldcoast(ctx):
-    random_target= random.choice(gc_list)
-    response = compose_response(random_target)
-    await ctx.send(response)
+    await ctx.send(compose_response(random.choice(gc_list))) 
 
 @bot.command(name='hb', brief='gets a hews bane random target')
 async def hewsbane(ctx):
-    random_target= random.choice(hb_list)
-    response = compose_response(random_target)
-    await ctx.send(response)
+    await ctx.send(compose_response(random.choice(hb_list))) 
 
 @bot.command(name='mm', brief='gets a murkmire random target')
 async def murkmire(ctx):
-    random_target= random.choice(mm_list)
-    response = compose_response(random_target)
-    await ctx.send(response)
+    await ctx.send(compose_response(random.choice(mm_list))) 
 
 @bot.command(name='ws', brief='gets a western skyrim random target')
 async def skyrim(ctx):
-    random_target= random.choice(ws_list)
-    response = compose_response(random_target)
-    await ctx.send(response)
+    await ctx.send(compose_response(random.choice(ws_list))) 
 
 @bot.command(name='ew', brief='gets a northern elsweyr random target')
 async def elsweyr(ctx):
-    random_target= random.choice(ew_list)
-    response = compose_response(random_target)
-    await ctx.send(response)
+    await ctx.send(compose_response(random.choice(ew_list))) 
 
 @bot.command(name='vv', brief='gets a vvardenfell random target')
 async def vvardenfell(ctx):
-    random_target= random.choice(vv_list)
-    response = compose_response(random_target)
-    await ctx.send(response)
+    await ctx.send(compose_response(random.choice(vv_list))) 
 
 @bot.command(name='se', brief='gets a southern elsweyr random target')
 async def southelsweyr(ctx):
-    random_target= random.choice(se_list)
-    response = compose_response(random_target)
-    await ctx.send(response)
+    await ctx.send(compose_response(random.choice(se_list))) 
 
 @bot.command(name='ss', brief='gets a summerset random target')
 async def summerset(ctx):
-    random_target= random.choice(ss_list)
-    response = compose_response(random_target)
-    await ctx.send(response)    
+    await ctx.send(compose_response(random.choice(ss_list))) 
 
 @bot.command(name='gd', brief='gets a group dungeon random target')
 async def dungeon(ctx):
-    random_target= random.choice(gd_list)
-    response = compose_response(random_target)
-    await ctx.send(response)
+    await ctx.send(compose_response(random.choice(gd_list)))
 
 @bot.command(name='anything', brief='gets a random target from anywhere (no world bosses)')
 async def anything(ctx):
-    random_target= random.choice(anything_list)
-    response = compose_response(random_target)
-    await ctx.send(response)
+    await ctx.send(compose_response(random.choice(anything_list)))
 
 bot.run(TOKEN)
 
