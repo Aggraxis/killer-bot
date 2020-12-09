@@ -62,13 +62,24 @@ with open('vv.csv') as csvfile:
 with open('se.csv') as csvfile:
     reader = csv.DictReader(csvfile)
     se_list = (list(reader))
+
 #Summerset
 with open('ss.csv') as csvfile:
     reader = csv.DictReader(csvfile)
     ss_list = (list(reader))      
 
-#put everything in one list (except the world bosses and dungeons) and shake it up... you know, just for fun.
-anything_list = target_list + cw_list + gc_list + hb_list + mm_list + ws_list + ew_list + vv_list + se_list + ss_list
+#Wrothgar
+with open('wg.csv') as csvfile:
+    reader = csv.DictReader(csvfile)
+    wg_list = (list(reader))  
+
+#High Profile
+with open('hp.csv') as csvfile:
+    reader = csv.DictReader(csvfile)
+    hp_list = (list(reader))  
+
+#put everything in one list (except the world bosses, dungeons, and high profile targets) and shake it up... you know, just for fun.
+anything_list = target_list + cw_list + gc_list + hb_list + mm_list + ws_list + ew_list + vv_list + se_list + ss_list + wg_list
 random.shuffle(anything_list)
 
 bot = commands.Bot(command_prefix='$')
@@ -128,9 +139,17 @@ async def southelsweyr(ctx):
 async def summerset(ctx):
     await ctx.send(compose_response(random.choice(ss_list))) 
 
+@bot.command(name='wg', brief='gets a wrothgar random target')
+async def dungeon(ctx):
+    await ctx.send(compose_response(random.choice(wg_list)))
+
 @bot.command(name='gd', brief='gets a group dungeon random target')
 async def dungeon(ctx):
     await ctx.send(compose_response(random.choice(gd_list)))
+
+@bot.command(name='hp', brief='gets a high profile random target')
+async def dungeon(ctx):
+    await ctx.send(compose_response(random.choice(hp_list)))
 
 @bot.command(name='anything', brief='gets a random target from anywhere (no world bosses)')
 async def anything(ctx):
