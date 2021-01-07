@@ -3,10 +3,18 @@ import random
 import os
 from discord.ext import commands
 from dotenv import load_dotenv
+from discord.utils import get
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
+
+knockerDict = {}
+
+#black door questions
+with open('blackdoor.csv') as csvfile:
+    reader = csv.DictReader(csvfile)
+    blackdoor_list = (list(reader))
 
 #base game contracts
 with open('targets.csv') as csvfile:
@@ -78,8 +86,13 @@ with open('hp.csv') as csvfile:
     reader = csv.DictReader(csvfile)
     hp_list = (list(reader))  
 
+#The Reach
+with open('re.csv') as csvfile:
+    reader = csv.DictReader(csvfile)
+    re_list = (list(reader))      
+
 #put everything in one list (except the world bosses, dungeons, and high profile targets) and shake it up... you know, just for fun.
-anything_list = target_list + cw_list + gc_list + hb_list + mm_list + ws_list + ew_list + vv_list + se_list + ss_list + wg_list
+anything_list = target_list + cw_list + gc_list + hb_list + mm_list + ws_list + ew_list + vv_list + se_list + ss_list + wg_list + re_list
 random.shuffle(anything_list)
 
 bot = commands.Bot(command_prefix='$')
@@ -140,12 +153,16 @@ async def summerset(ctx):
     await ctx.send(compose_response(random.choice(ss_list))) 
 
 @bot.command(name='wg', brief='gets a wrothgar random target')
-async def dungeon(ctx):
+async def wrothgar(ctx):
     await ctx.send(compose_response(random.choice(wg_list)))
 
 @bot.command(name='gd', brief='gets a group dungeon random target')
 async def dungeon(ctx):
     await ctx.send(compose_response(random.choice(gd_list)))
+
+@bot.command(name='re', brief='gets a reach random target')
+async def reach(ctx):
+    await ctx.send(compose_response(random.choice(re_list)))
 
 @bot.command(name='hp', brief='gets a high profile random target')
 async def dungeon(ctx):
@@ -154,6 +171,19 @@ async def dungeon(ctx):
 @bot.command(name='anything', brief='gets a random target from anywhere (no world bosses)')
 async def anything(ctx):
     await ctx.send(compose_response(random.choice(anything_list)))
+
+@bot.command(name='knock', brief='see help knock for details', help='knock on the black door. used when first joining. when you get the question, type $knock [answer] to respond. ex: $knock beans')
+async def knock(ctx):
+    if ctx.author.id in knockerDict:
+        if knockerDict[ctx.author.id]['KEYWORD'].lower() in ctx.message.content.lower():
+            await ctx.send('yes, the answer is ' + knockerDict[ctx.author.id]['ANSWER'])
+            role = get(ctx.guild.roles, name='Verified Member')
+            await ctx.author.add_roles(role)
+        else:
+            await ctx.send('that is not correct. The question was: ' + knockerDict[ctx.author.id]['QUESTION'])
+    else: #add the user n crap to the dict if he didn't exist
+        knockerDict[ctx.author.id] = random.choice(blackdoor_list)
+        await ctx.send(knockerDict[ctx.author.id]['QUESTION'])
 
 bot.run(TOKEN)
 
