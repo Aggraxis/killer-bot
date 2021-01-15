@@ -123,12 +123,11 @@ def detect_farmer(player, prefix):
                 return False
         else:
             miniLedger.pop(player)
-            miniLedger[player][prefix] = 1
+            miniLedger[player] = {prefix : 1} 
             return False
     else:
-        #the key entry for the player has to be initialized to an empty dict or you get a keyerror.
-        miniLedger[player] = {} 
-        miniLedger[player][prefix] = 1
+        #the key entry for the player has to be initialized as a dict or you get a keyerror.
+        miniLedger[player] = {prefix : 1} 
         return False
 
 # I think everybody's dice bot uses this logic.
@@ -158,7 +157,7 @@ async def wb(ctx):
 
 @bot.command(name='cw', brief='gets a clockwork city random target')
 async def clockwork(ctx):
-    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    isFarmer = detect_farmer(ctx.author.id, ctx.invoked_with)
     if isFarmer:
         await ctx.send(compose_response(random.choice(target_list)))
     else:
@@ -166,7 +165,7 @@ async def clockwork(ctx):
 
 @bot.command(name='gc', brief='gets a gold coast random target')
 async def goldcoast(ctx):
-    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    isFarmer = detect_farmer(ctx.author.id, ctx.invoked_with)
     if isFarmer:
         await ctx.send(compose_response(random.choice(target_list)))
     else:
@@ -174,7 +173,7 @@ async def goldcoast(ctx):
 
 @bot.command(name='hb', brief='gets a hews bane random target')
 async def hewsbane(ctx):
-    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    isFarmer = detect_farmer(ctx.author.id, ctx.invoked_with)
     if isFarmer:
         await ctx.send(compose_response(random.choice(target_list)))
     else:
@@ -183,7 +182,7 @@ async def hewsbane(ctx):
 
 @bot.command(name='mm', brief='gets a murkmire random target')
 async def murkmire(ctx):
-    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    isFarmer = detect_farmer(ctx.author.id, ctx.invoked_with)
     if isFarmer:
         await ctx.send(compose_response(random.choice(target_list)))
     else:
@@ -191,7 +190,7 @@ async def murkmire(ctx):
 
 @bot.command(name='ws', brief='gets a western skyrim random target')
 async def skyrim(ctx):
-    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    isFarmer = detect_farmer(ctx.author.id, ctx.invoked_with)
     if isFarmer:
         await ctx.send(compose_response(random.choice(target_list)))
     else:
@@ -199,7 +198,7 @@ async def skyrim(ctx):
 
 @bot.command(name='ew', brief='gets a northern elsweyr random target')
 async def elsweyr(ctx):
-    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    isFarmer = detect_farmer(ctx.author.id, ctx.invoked_with)
     if isFarmer:
         await ctx.send(compose_response(random.choice(target_list)))
     else:
@@ -207,7 +206,7 @@ async def elsweyr(ctx):
 
 @bot.command(name='vv', brief='gets a vvardenfell random target')
 async def vvardenfell(ctx):
-    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    isFarmer = detect_farmer(ctx.author.id, ctx.invoked_with)
     if isFarmer:
         await ctx.send(compose_response(random.choice(target_list)))
     else:
@@ -215,7 +214,7 @@ async def vvardenfell(ctx):
 
 @bot.command(name='se', brief='gets a southern elsweyr random target')
 async def southelsweyr(ctx):
-    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    isFarmer = detect_farmer(ctx.author.id, ctx.invoked_with)
     if isFarmer:
         await ctx.send(compose_response(random.choice(target_list)))
     else:
@@ -223,7 +222,7 @@ async def southelsweyr(ctx):
 
 @bot.command(name='ss', brief='gets a summerset random target')
 async def summerset(ctx):
-    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    isFarmer = detect_farmer(ctx.author.id, ctx.invoked_with)
     if isFarmer:
         await ctx.send(compose_response(random.choice(target_list)))
     else:
@@ -231,7 +230,7 @@ async def summerset(ctx):
 
 @bot.command(name='wg', brief='gets a wrothgar random target')
 async def wrothgar(ctx):
-    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    isFarmer = detect_farmer(ctx.author.id, ctx.invoked_with)
     if isFarmer:
         await ctx.send(compose_response(random.choice(target_list)))
     else:
@@ -243,7 +242,7 @@ async def dungeon(ctx):
 
 @bot.command(name='re', brief='gets a reach random target')
 async def reach(ctx):
-    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    isFarmer = detect_farmer(ctx.author.id, ctx.invoked_with)
     if isFarmer:
         await ctx.send(compose_response(random.choice(target_list)))
     else:
@@ -251,7 +250,7 @@ async def reach(ctx):
 
 @bot.command(name='hp', brief='gets a high profile random target')
 async def dungeon(ctx):
-    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    isFarmer = detect_farmer(ctx.author.id, ctx.invoked_with)
     if isFarmer:
         await ctx.send(compose_response(random.choice(target_list)))
     else:
