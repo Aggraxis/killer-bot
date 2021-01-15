@@ -4,12 +4,15 @@ import os
 from discord.ext import commands
 from dotenv import load_dotenv
 from discord.utils import get
+from random import randint
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 knockerDict = {}
+miniLedger = {}
+
 
 #black door questions
 with open('blackdoor.csv') as csvfile:
@@ -103,6 +106,43 @@ def compose_response(random_target):
     # different headers, change this response string accordingly.
      return f"Contract # {random_target['CONTRACT_NUMBER']}\nName: {random_target['TARGET']}\nZone: {random_target['ZONE']}\n{random_target['LEDGER_TEXT']}"
 
+def detect_farmer(player, prefix):
+    # we'll detect if someone requested 3 contracts in a row from the
+    # same zone. Some of the zones have very few contracts and tend to
+    # be farmable. We didn't care much about this before, but now that
+    # we have a monthly kill count contest we really need to discourage
+    # this behavior pattern. Luckily, I happen to be intimately acquainted
+    # with the bot's innards...
+    if player in miniLedger:
+        if prefix in miniLedger[player]:
+           if miniLedger[player][prefix] == 3:
+               miniLedger.pop(player)
+               return True
+           else:
+                miniLedger[player][prefix] += 1
+                return False
+        else:
+            miniLedger.pop(player)
+            miniLedger[player][prefix] = 1
+            return False
+    else:
+        #the key entry for the player has to be initialized to an empty dict or you get a keyerror.
+        miniLedger[player] = {} 
+        miniLedger[player][prefix] = 1
+        return False
+
+# I think everybody's dice bot uses this logic.
+def roll(roll):
+    rolling = []
+    roll = roll.lower()
+    try:
+        for x in range(int(roll.split('d')[0])):
+            rolling.append(randint(1,int(roll.split('d')[1])))
+        return f'You rolled {" ".join(str(x) for x in rolling)}, which has a total of {sum(rolling)}'
+    except Exception as err:
+        return f'I cannot roll that. I need it in 2d6 format, please.'
+
+
 @bot.event
 async def on_ready():
     print(f'{bot.user.name} has connected to Discord!')
@@ -118,43 +158,84 @@ async def wb(ctx):
 
 @bot.command(name='cw', brief='gets a clockwork city random target')
 async def clockwork(ctx):
-    await ctx.send(compose_response(random.choice(cw_list))) 
+    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    if isFarmer:
+        await ctx.send(compose_response(random.choice(target_list)))
+    else:
+        await ctx.send(compose_response(random.choice(cw_list))) 
 
 @bot.command(name='gc', brief='gets a gold coast random target')
 async def goldcoast(ctx):
-    await ctx.send(compose_response(random.choice(gc_list))) 
+    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    if isFarmer:
+        await ctx.send(compose_response(random.choice(target_list)))
+    else:
+        await ctx.send(compose_response(random.choice(gc_list))) 
 
 @bot.command(name='hb', brief='gets a hews bane random target')
 async def hewsbane(ctx):
-    await ctx.send(compose_response(random.choice(hb_list))) 
+    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    if isFarmer:
+        await ctx.send(compose_response(random.choice(target_list)))
+    else:
+        await ctx.send(compose_response(random.choice(hb_list))) 
+
 
 @bot.command(name='mm', brief='gets a murkmire random target')
 async def murkmire(ctx):
-    await ctx.send(compose_response(random.choice(mm_list))) 
+    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    if isFarmer:
+        await ctx.send(compose_response(random.choice(target_list)))
+    else:
+        await ctx.send(compose_response(random.choice(mm_list))) 
 
 @bot.command(name='ws', brief='gets a western skyrim random target')
 async def skyrim(ctx):
-    await ctx.send(compose_response(random.choice(ws_list))) 
+    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    if isFarmer:
+        await ctx.send(compose_response(random.choice(target_list)))
+    else:
+        await ctx.send(compose_response(random.choice(ws_list))) 
 
 @bot.command(name='ew', brief='gets a northern elsweyr random target')
 async def elsweyr(ctx):
-    await ctx.send(compose_response(random.choice(ew_list))) 
+    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    if isFarmer:
+        await ctx.send(compose_response(random.choice(target_list)))
+    else:
+        await ctx.send(compose_response(random.choice(ew_list))) 
 
 @bot.command(name='vv', brief='gets a vvardenfell random target')
 async def vvardenfell(ctx):
-    await ctx.send(compose_response(random.choice(vv_list))) 
+    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    if isFarmer:
+        await ctx.send(compose_response(random.choice(target_list)))
+    else:
+        await ctx.send(compose_response(random.choice(vv_list))) 
 
 @bot.command(name='se', brief='gets a southern elsweyr random target')
 async def southelsweyr(ctx):
-    await ctx.send(compose_response(random.choice(se_list))) 
+    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    if isFarmer:
+        await ctx.send(compose_response(random.choice(target_list)))
+    else:
+        await ctx.send(compose_response(random.choice(se_list))) 
 
 @bot.command(name='ss', brief='gets a summerset random target')
 async def summerset(ctx):
-    await ctx.send(compose_response(random.choice(ss_list))) 
+    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    if isFarmer:
+        await ctx.send(compose_response(random.choice(target_list)))
+    else:
+        await ctx.send(compose_response(random.choice(ss_list))) 
 
 @bot.command(name='wg', brief='gets a wrothgar random target')
 async def wrothgar(ctx):
-    await ctx.send(compose_response(random.choice(wg_list)))
+    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    if isFarmer:
+        await ctx.send(compose_response(random.choice(target_list)))
+    else:
+        await ctx.send(compose_response(random.choice(wg_list))) 
 
 @bot.command(name='gd', brief='gets a group dungeon random target')
 async def dungeon(ctx):
@@ -162,11 +243,19 @@ async def dungeon(ctx):
 
 @bot.command(name='re', brief='gets a reach random target')
 async def reach(ctx):
-    await ctx.send(compose_response(random.choice(re_list)))
+    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    if isFarmer:
+        await ctx.send(compose_response(random.choice(target_list)))
+    else:
+        await ctx.send(compose_response(random.choice(re_list))) 
 
 @bot.command(name='hp', brief='gets a high profile random target')
 async def dungeon(ctx):
-    await ctx.send(compose_response(random.choice(hp_list)))
+    isFarmer = detect_farmer(ctx.author.id, ctx.prefix)
+    if isFarmer:
+        await ctx.send(compose_response(random.choice(target_list)))
+    else:
+        await ctx.send(compose_response(random.choice(hp_list))) 
 
 @bot.command(name='anything', brief='gets a random target from anywhere (no world bosses)')
 async def anything(ctx):
@@ -184,6 +273,10 @@ async def knock(ctx):
     else: #add the user n crap to the dict if he didn't exist
         knockerDict[ctx.author.id] = random.choice(blackdoor_list)
         await ctx.send(knockerDict[ctx.author.id]['QUESTION'])
+
+@bot.command(name='dice', brief='rolls xdy dice. ex: $dice 2d4')
+async def dice(ctx, arg='1d6'):
+    await ctx.send(roll(arg))
 
 bot.run(TOKEN)
 
