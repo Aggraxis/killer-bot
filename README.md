@@ -9,4 +9,3 @@ Requires:
 
 I have also included a sample systemd service file that I used to run the script automatically on reboot. Just edit the paths, user, and enable/start the service.
 
-I accept no liability for anything that happens if you use this code. I make no warranties or guarantees whatsoever. Use at your own risk, etc.
