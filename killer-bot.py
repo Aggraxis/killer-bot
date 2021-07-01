@@ -16,26 +16,23 @@ bot = commands.Bot(command_prefix='$')
 # Declares slash commands through the client.
 slash = SlashCommand(bot, sync_commands=True) 
 
+#filename variables
+targetFile = 'targets.csv'
+dlcFiles =['cw.csv','gc.csv','hb.csv','mm.csv','ws.csv','ew.csv',
+           'vv.csv','se.csv','ss.csv','wg.csv','re.csv','bw.csv']
+wbFile = 'wb.csv'
+hpFile = 'hp.csv'
+
 # Declare and fill the lists
-target_list = utilities.listFiller('targets.csv')
-cw_list = utilities.listFiller('cw.csv')
-gc_list = utilities.listFiller('gc.csv')
-hb_list = utilities.listFiller('hb.csv')
-mm_list = utilities.listFiller('mm.csv')
-ws_list = utilities.listFiller('ws.csv')
-ew_list = utilities.listFiller('ew.csv')
-vv_list = utilities.listFiller('vv.csv')
-se_list = utilities.listFiller('se.csv')
-ss_list = utilities.listFiller('ss.csv')
-wg_list = utilities.listFiller('wg.csv')
-re_list = utilities.listFiller('re.csv')
-bw_list = utilities.listFiller('bw.csv')
-wb_list = utilities.listFiller('wb.csv')
-hp_list = utilities.listFiller('hp.csv')
-anything_list = target_list + cw_list + gc_list + hb_list + mm_list \
-                + ws_list + ew_list + vv_list + se_list + ss_list \
-                + wg_list + re_list + bw_list
+target_list = utilities.listFiller(targetFile)
+wb_list = utilities.listFiller(wbFile)
+hp_list = utilities.listFiller(hpFile)
+anything_list = []
+for dlcFile in dlcFiles:
+    anything_list.extend(utilities.listFiller(dlcFile))
 random.shuffle(anything_list)
+
+#build a dictionary of commands and associate them with target lists
 commandDict= {}
 commandDict['base'] = target_list
 commandDict['wb'] = wb_list

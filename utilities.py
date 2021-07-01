@@ -23,7 +23,7 @@ def roll(roll):
     try:
         for x in range(int(roll.split('d')[0])):
             rolling.append(randint(1,int(roll.split('d')[1])))
-        return (f'You rolled {" ".join(str(x) for x in rolling)},' +
+        return (f'You rolled {" ".join(str(x) for x in rolling)}, ' +
                 f'which has a total of {sum(rolling)}')
     except Exception as err:
         return f'The argument provided was not in XdY format. ex: 2d6'
