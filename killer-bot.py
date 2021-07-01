@@ -28,6 +28,7 @@ target_list = utilities.listFiller(targetFile)
 wb_list = utilities.listFiller(wbFile)
 hp_list = utilities.listFiller(hpFile)
 anything_list = []
+anything_list.extend(target_list)
 for dlcFile in dlcFiles:
     anything_list.extend(utilities.listFiller(dlcFile))
 random.shuffle(anything_list)
