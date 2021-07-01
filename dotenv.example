@@ -1,3 +1,4 @@
 # .env
-DISCORD_TOKEN={your bot token}
-DISCORD_GUILD="Some Name - Might not be needed"
+DISCORD_TOKEN=your_bot_token
+#separate your guild IDs with spaces
+GUILD_IDS = "some_id another_id"
